@@ -48,3 +48,9 @@ def make_meme(string):
     blank = blank.filter(ImageFilter.BoxBlur(0.5))
     base_alpha.paste(blank, (0,0), blank)
     return base_alpha.convert("RGB")
+
+def save_meme(string, fileobj):
+    img = make_meme(string)
+    img.save(fileobj, 'JPEG', quality=70)
+    fileobj.seek(0)
+    return fileobj

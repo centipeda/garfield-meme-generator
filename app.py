@@ -19,8 +19,7 @@ def create_app():
             return "missing phrase param", 400
 
         bio = BytesIO()
-        convert.make_meme(request.args.get("phrase")).save(bio, 'JPEG', quality=70)
-        bio.seek(0)
-        return send_file(bio, mimetype='image/jpeg')
+        img = convert.save_meme(request.args.get("phrase"), bio)
+        return send_file(img, mimetype='image/jpeg')
 
     return app
