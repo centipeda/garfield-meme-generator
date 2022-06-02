@@ -1,19 +1,26 @@
-from PIL import Image,ImageFilter
+"""Creates meme images with template images and PIL."""
 
+from PIL import Image, ImageFilter
+
+# letter template image params
 letterfield_x = 44
 letterfield_y = 58
 letter_height = 30
 letter_width  = 30
 letter_spacing = 2
 
+# spacing between words
 word_spacing = 1
 
+# resized letter size
 post_width = 36
 post_height = 43
 
+# letter template image
 txt = Image.open('transparent.png')
 txt_alpha = txt.convert("RGBA")
 
+# letter template location constants
 position = { "a": (0,0), "b": (1,0), "c": (2,0), "d": (3,0), "e": (4,0), "f": (5,0), "g": (6,0), "h": (7,0),
     "i": (8,0), "j": (9,0), "k": (10,0), "l": (11,0), "m": (12,0), "n": (13,0), "o": (14,0), "p": (15,0),
     "q": (0,1), "r": (1,1), "s": (2,1), "t": (3,1), "u": (4,1), "v": (5,1), "w": (6,1), "x": (7,1), "y": (8,1), "z": (9,2),
@@ -22,6 +29,7 @@ position = { "a": (0,0), "b": (1,0), "c": (2,0), "d": (3,0), "e": (4,0), "f": (5
 }
 
 def get_char(letter):
+    """Get the position of a letter on the font reference image."""
     if letter.lower() not in position:
         return
     letter = letter.lower()
@@ -32,6 +40,7 @@ def get_char(letter):
     return letter_img.resize((post_width, post_height))
 
 def make_meme(string):
+    """Superimpose a string onto the template image in its style."""
     word_x = 240
     word_y = 625
     base = Image.open('garfield.jpeg')
@@ -50,6 +59,7 @@ def make_meme(string):
     return base_alpha.convert("RGB")
 
 def save_meme(string, fileobj):
+    """Save image data from make_meme into the file object."""
     img = make_meme(string)
     img.save(fileobj, 'JPEG', quality=70)
     fileobj.seek(0)

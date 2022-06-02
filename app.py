@@ -1,3 +1,5 @@
+"""Flask app for serving  meme images."""
+
 from flask import Flask, request, send_file
 import os
 from io import BytesIO
