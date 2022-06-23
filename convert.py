@@ -1,6 +1,9 @@
 """Creates meme images with template images and PIL."""
 
 from PIL import Image, ImageFilter
+import os
+
+__location__ = os.path.realpath( os.path.join(os.getcwd(), os.path.dirname(__file__))) 
 
 # letter template image params
 letterfield_x = 44
@@ -17,7 +20,7 @@ post_width = 36
 post_height = 43
 
 # letter template image
-txt = Image.open('transparent.png')
+txt = Image.open(os.path.join(__location__, 'transparent.png'))
 txt_alpha = txt.convert("RGBA")
 
 # letter template location constants
@@ -43,7 +46,7 @@ def make_meme(string):
     """Superimpose a string onto the template image in its style."""
     word_x = 240
     word_y = 625
-    base = Image.open('garfield.jpeg')
+    base = Image.open(os.path.join(__location__, 'garfield.jpeg'))
     base_alpha = base.convert('RGBA')
     blank = Image.new("RGBA", size=base.size)
     for ch in string:
